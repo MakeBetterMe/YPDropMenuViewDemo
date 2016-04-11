@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B9A1EE1B20944AA6E7D431908A953F6449A28492",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "4F32C305776E0ECE55901323754785324FD241CC" : 0,
+    "B9A1EE1B20944AA6E7D431908A953F6449A28492" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "007DC182-A636-4A63-9C80-49C32611B7ED",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "4F32C305776E0ECE55901323754785324FD241CC" : "",
+    "B9A1EE1B20944AA6E7D431908A953F6449A28492" : "YPDropMenuView\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "YPDropMenuViewDemo",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "YPDropMenuViewDemo.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.coding.net\/ponycoder\/VirtualFriend.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4F32C305776E0ECE55901323754785324FD241CC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/MakeBetterMe\/YPDropMenuViewDemo.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B9A1EE1B20944AA6E7D431908A953F6449A28492"
+    }
+  ]
+}

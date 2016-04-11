@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import SnapKit
 
+let screenWidth = UIScreen.mainScreen().bounds.size.width
+let screenHeight = UIScreen.mainScreen().bounds.size.height
+
+
 struct WOWDropMenuSetting {
     
     static var columnTitles = ["下拉菜单"]
@@ -56,6 +60,7 @@ class WOWDropMenuView: UIView {
     private var currentColumn:Int = 0
     private var show:Bool = false
     private var columItemArr = [WOWDropMenuColumn]()
+    private var showSubViews = [UIView]()
     //存放的是每一列正在选择的title  row = value
     private var columnShowingDict = [Int:String]()
     
@@ -91,7 +96,6 @@ class WOWDropMenuView: UIView {
     
     private func configSubView(){
         backgroundColor = UIColor.whiteColor()
-        addSubview(tableView)
         configHeaderView()
         //添加下方阴影线
         let line = UIView()
@@ -108,13 +112,11 @@ class WOWDropMenuView: UIView {
         bottomButton.setBackgroundImage(UIImage(named: "icon_chose_bottom"), forState: .Normal)
         bottomButton.addTarget(self, action:#selector(bottomButtonClick(_:)), forControlEvents:.TouchUpInside)
         bottomButton.hidden = true
-        self.addSubview(bottomButton)
+        
         
         backView = UIView(frame:CGRectMake(0,CGRectGetHeight(frame),CGRectGetWidth(frame),UIScreen.mainScreen().bounds.size.height))
         backView.hidden = false
         backView.alpha = 0
-        self.addSubview(backView)
-        self.sendSubviewToBack(backView)
         //添加背景毛玻璃效果
         let blurEffect = UIBlurEffect(style: .Light)
         let blurView = UIVisualEffectView(effect: blurEffect)
@@ -123,6 +125,7 @@ class WOWDropMenuView: UIView {
         //添加点击手势
         let tap = UITapGestureRecognizer(target: self, action:#selector(backTap))
         backView.addGestureRecognizer(tap)
+        showSubViews = [bottomButton,backView,tableView]
     }
     
     private func configHeaderView(){
@@ -189,13 +192,26 @@ class WOWDropMenuView: UIView {
         }
         currentColumn = btn.tag
         if show {
+//            showSubViews.forEach({ (view) in
+//                view.removeFromSuperview()
+//            })可以不这样做
             rotateArrow()
             tableView.hidden = false
             backView.hidden  = false
             bottomButton.hidden = false
+            tableView.frame = CGRectMake(0, self.y + self.height,screenWidth, 0)
+            bottomButton.frame = CGRectMake(0,self.y + self.height,screenWidth,21)
+            backView.frame = CGRectMake(0, self.y + self.height, screenWidth, screenHeight)
+            self.superview?.addSubview(tableView)
+            self.superview?.addSubview(bottomButton)
+            self.superview?.addSubview(backView)
+            self.superview?.insertSubview(backView, belowSubview: tableView)
+            
             UIView.animateWithDuration(WOWDropMenuSetting.showDuration, animations: { 
                 self.tableView.height = CGFloat(WOWDropMenuSetting.maxShowCellNumber) * WOWDropMenuSetting.cellHeight
-                self.bottomButton.y = CGFloat(WOWDropMenuSetting.maxShowCellNumber) * WOWDropMenuSetting.cellHeight + CGRectGetHeight(self.frame) - CGFloat(2)
+                
+                self.bottomButton.y = CGRectGetMaxY(self.tableView.frame) - 1
+                
                 self.backView.alpha = 0.8
             })
         }else{
@@ -223,6 +239,9 @@ class WOWDropMenuView: UIView {
                 self.tableView.hidden = true
                 self.bottomButton.hidden = true
                 self.backView.hidden = true
+                self.tableView.removeFromSuperview()
+                self.bottomButton.removeFromSuperview()
+                self.backView.removeFromSuperview()
         })
     }
     
@@ -277,19 +296,19 @@ extension WOWDropMenuView:UITableViewDelegate,UITableViewDataSource{
         }
     }
     
-    //因为有view在父试图之外，所以要加入响应
-    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-        var view = super.hitTest(point, withEvent: event)
-        if view == nil {
-            for v in self.subviews {
-                let p = v.convertPoint(point, fromView: self)
-                if  CGRectContainsPoint(v.bounds, p) {
-                    view = v
-                }
-            }
-        }
-        return view
-    }
+//    //因为有view在父试图之外，所以要加入响应  但是会阻碍外侧tableView的响应事件
+//    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+//        var view = super.hitTest(point, withEvent: event)
+//        if view == nil {
+//            for v in self.subviews {
+//                let p = v.convertPoint(point, fromView: self)
+//                if  CGRectContainsPoint(v.bounds, p) {
+//                    view = v
+//                }
+//            }
+//        }
+//        return view
+//    }
     
 }
 
